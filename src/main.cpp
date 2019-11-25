@@ -1,24 +1,28 @@
 #include <Arduino.h>
 #include <WS2812FX.h>
-#include "ESP32_RMT_Driver.h"
-#include "TouchButton.h"
+#include "Button.h"
+#ifdef ESP32
+  #include "ESP32_RMT_Driver.h"
+#endif
 
 #define NUMBER_OF_LEDS 300
 #define LED_MAX_BRIGHTNESS 10
 #define LED_PIN 5
-#define TOUCH_PIN 4
+#define BUTTON_PIN 4
 #define FADE_ON_TIME 2000
 #define FADE_OFF_TIME 500
 #define STEP_ON_TIME 2000
 #define STEP_OFF_TIME 500
 
-void myCustomShow1(void);
 bool stepOn(int channel, int startBit, int stopBit, long color, int time, bool onOff);
 bool fadeOn(int channel, int startBit, int stopBit, long color, int time, bool onOff);
-void showLEDsInFrames(int frames);
+void showLEDsInFrames(unsigned int frames);
+#ifdef ESP32
+  void myCustomShow1(void);
+#endif
 
 WS2812FX leds = WS2812FX(NUMBER_OF_LEDS, LED_PIN, NEO_GRBW + NEO_KHZ800);
-TouchButton touchButton(TOUCH_PIN);
+Button button(BUTTON_PIN);
 
 bool animationRunning = false;
 int animationMode = -1;
@@ -33,8 +37,10 @@ void setup() {
 
   // LEDs initialisieren
   leds.init();
-  rmt_tx_int(RMT_CHANNEL_0, leds.getPin());
-  leds.setCustomShow(myCustomShow1);
+  #ifdef ESP32
+    rmt_tx_int(RMT_CHANNEL_0, leds.getPin());
+    leds.setCustomShow(myCustomShow1); 
+  #endif
   leds.setBrightness(LED_MAX_BRIGHTNESS);
   leds.start();
 }
@@ -44,8 +50,7 @@ void loop() {
   showLEDsInFrames(24);
   
   // Checke Eingabe
-  //touchButton.printTouchVal(10);
-  clickStatus = touchButton.touchButtonLoop();
+  clickStatus = button.ButtonLoop();
   if (Serial.available() > 0){ // Eingabe über Serial
     clickStatus = Serial.parseInt();
     Serial.println(clickStatus);
@@ -126,17 +131,19 @@ void loop() {
   }
 }
 
+#ifdef ESP32
 void myCustomShow1(void) {
   uint8_t *pixels = leds.getPixels();
   uint16_t numBytes = leds.getNumBytes() + 1;
   rmt_write_sample(RMT_CHANNEL_0, pixels, numBytes, false);
 }
+#endif
 
 bool stepOn(int channel, int startBit, int stopBit, long color, int time, bool onOff){
   bool animationStatus = false;
   static unsigned long lastMillis[10] = {};
   static int channelCounter[10] = {};
-  int refreshTime = ((float)time/(stopBit-startBit)+0.5);
+  unsigned int refreshTime = ((float)time/(stopBit-startBit)+0.5);
   if (onOff){
     if (channelCounter[channel] <= (stopBit - startBit)){      
       if ( (millis()-lastMillis[channel]) >= refreshTime ){
@@ -161,7 +168,7 @@ bool fadeOn(int channel, int startBit, int stopBit, long color, int time, bool o
   bool animationStatus = false;
   static unsigned lastMillis[10] = {};
   static int channelCounter[10] = {};
-  int refreshTime = ((float)time/(255)+0.5);
+  unsigned int refreshTime = ((float)time/(255)+0.5);
   int r, g, b, w;
   w = color >> 24 & 0xFF; r = color >> 16 & 0xFF; g = color >> 8 & 0xFF; b = color & 0xFF;
   if (onOff){
@@ -184,7 +191,7 @@ bool fadeOn(int channel, int startBit, int stopBit, long color, int time, bool o
   return animationStatus;
 }
 
-void showLEDsInFrames(int frames){
+void showLEDsInFrames(unsigned int frames){
   static unsigned long lastMillis = millis();
   if ( (millis()-lastMillis) >= (1000UL/frames) ){
     leds.show();
