@@ -7,8 +7,8 @@
 
 #define NUMBER_OF_LEDS 300
 #define LED_MAX_BRIGHTNESS 10
-#define LED_PIN 5
-#define BUTTON_PIN 4
+#define LED_PIN D5
+#define BUTTON_PIN D6
 #define FADE_ON_TIME 2000
 #define FADE_OFF_TIME 500
 #define STEP_ON_TIME 2000
@@ -131,14 +131,6 @@ void loop() {
   }
 }
 
-#ifdef ESP32
-void myCustomShow1(void) {
-  uint8_t *pixels = leds.getPixels();
-  uint16_t numBytes = leds.getNumBytes() + 1;
-  rmt_write_sample(RMT_CHANNEL_0, pixels, numBytes, false);
-}
-#endif
-
 bool stepOn(int channel, int startBit, int stopBit, long color, int time, bool onOff){
   bool animationStatus = false;
   static unsigned long lastMillis[10] = {};
@@ -198,3 +190,11 @@ void showLEDsInFrames(unsigned int frames){
     lastMillis = millis();
   }
 }
+
+#ifdef ESP32
+void myCustomShow1(void) {
+  uint8_t *pixels = leds.getPixels();
+  uint16_t numBytes = leds.getNumBytes() + 1;
+  rmt_write_sample(RMT_CHANNEL_0, pixels, numBytes, false);
+}
+#endif

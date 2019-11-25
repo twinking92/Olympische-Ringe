@@ -3,7 +3,9 @@
 
 #include <Button.h>
 
-Button::Button(int buttonPin):debounce(50), DCgap(250), holdTime(2000), longHoldTime(5000), threshold(55), buttonPin(buttonPin){}
+Button::Button(int buttonPin):debounce(50), DCgap(250), holdTime(2000), longHoldTime(5000), threshold(55), buttonPin(buttonPin){
+    pinMode(buttonPin, INPUT);
+}
 
 int Button::ButtonLoop(){    
    int event = 0;
