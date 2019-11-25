@@ -1,18 +1,13 @@
 //=================================================
 //  MULTI-CLICK:  One Button, Multiple Events
 
-#include <TouchButton.h>
+#include <Button.h>
 
-TouchButton::TouchButton(int touchPin):debounce(50), DCgap(250), holdTime(2000), longHoldTime(3000), threshold(55), touchPin(touchPin), filter(5){}
-TouchButton::TouchButton(int touchPin, int debounce, int DCgap, int holdTime, int longHoldTime, int threshold):debounce(debounce), DCgap(DCgap), holdTime(holdTime), longHoldTime(longHoldTime), threshold(threshold), touchPin(touchPin), filter(5){}
+Button::Button(int buttonPin):debounce(50), DCgap(250), holdTime(2000), longHoldTime(5000), threshold(55), buttonPin(buttonPin){}
 
-int TouchButton::touchButtonLoop(){    
-   event = 0;
-   touchVal = 0;
-   touchVal = filter.AddValue(touchRead(touchPin));
-   if (touchVal < threshold){
-        buttonVal = LOW;
-   } else {buttonVal= HIGH;}
+int Button::ButtonLoop(){    
+   int event = 0;
+   buttonVal = !digitalRead(buttonPin);
    // Button pressed down
    if (buttonVal == LOW && buttonLast == HIGH && (millis() - upTime) > debounce)
    {
@@ -73,15 +68,4 @@ int TouchButton::touchButtonLoop(){
    }
    buttonLast = buttonVal;
    return event;
-}
-
-void TouchButton::printTouchVal(int time){
-    if (millis()-lastmillis > time){
-        Serial.printf("Current touch value is: %d.\n\n", touchVal);
-        lastmillis = millis();
-    }
-}
-
-void TouchButton::setThreshold(int threshold){
-    this->threshold = threshold;
 }
