@@ -4,7 +4,7 @@
 #include <Button.h>
 
 Button::Button(int buttonPin):debounce(50), DCgap(250), holdTime(2000), longHoldTime(5000), threshold(55), buttonPin(buttonPin){
-    pinMode(buttonPin, INPUT);
+    pinMode(buttonPin, INPUT_PULLDOWN_16);
 }
 
 int Button::ButtonLoop(){    

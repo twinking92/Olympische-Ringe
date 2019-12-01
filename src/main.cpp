@@ -8,7 +8,7 @@
 #define NUMBER_OF_LEDS 300
 #define LED_MAX_BRIGHTNESS 10
 #define LED_PIN D5
-#define BUTTON_PIN D6
+#define BUTTON_PIN D8
 #define FADE_ON_TIME 2000
 #define FADE_OFF_TIME 500
 #define STEP_ON_TIME 2000
@@ -26,7 +26,7 @@ Button button(BUTTON_PIN);
 
 bool animationRunning = false;
 int animationMode = -1;
-int clickStatus = 0;
+int clickStatus = 1;
 unsigned long startOfAnimationTime = 0;
 
 void setup() {
@@ -48,13 +48,6 @@ void setup() {
 void loop() {
   // Aktualisiere LEDs
   showLEDsInFrames(24);
-  
-  // Checke Eingabe
-  clickStatus = button.ButtonLoop();
-  if (Serial.available() > 0){ // Eingabe über Serial
-    clickStatus = Serial.parseInt();
-    Serial.println(clickStatus);
-  }
 
   // Verarbeite Eingabe
   switch (clickStatus){
@@ -128,6 +121,13 @@ void loop() {
       animationRunning = false;
       Serial.printf("<%ldms>\n", millis()-startOfAnimationTime); // Debugging
     }
+  }
+  
+  // Checke Eingabe
+  clickStatus = button.ButtonLoop();
+  if (Serial.available() > 0){ // Eingabe über Serial
+    clickStatus = Serial.parseInt();
+    Serial.println(clickStatus);
   }
 }
 
