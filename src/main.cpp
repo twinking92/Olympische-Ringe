@@ -5,8 +5,8 @@
   #include "ESP32_RMT_Driver.h"
 #endif
 
-#define NUMBER_OF_LEDS 300
-#define LED_MAX_BRIGHTNESS 10
+#define NUMBER_OF_LEDS 339
+#define LED_MAX_BRIGHTNESS 50
 #define LED_PIN D5
 #define BUTTON_PIN D8
 #define FADE_ON_TIME 2000
@@ -85,36 +85,36 @@ void loop() {
     bool aR[10] = {true, true, true, true, true, true, true, true, true, true};
     switch (animationMode){
       case 1:
-        aR[0] = fadeOn(0, 0, NUMBER_OF_LEDS-1, 0xFF000000, FADE_ON_TIME, true);
+        aR[0] = fadeOn(0, 0, NUMBER_OF_LEDS, 0xFF000000, FADE_ON_TIME, true);
         //aR[0] = fadeOn(0, 0, NUMBER_OF_LEDS-1, WHITE, FADE_ON_TIME, true);
         break;
       case -1:
-        aR[0] = fadeOn(0, 0, NUMBER_OF_LEDS-1, 0xFF000000, FADE_OFF_TIME, false); // RGBW
+        aR[0] = fadeOn(0, 0, NUMBER_OF_LEDS, 0xFF000000, FADE_OFF_TIME, false); // RGBW
         //aR[0] = fadeOn(0, 0, NUMBER_OF_LEDS-1, WHITE, FADE_OFF_TIME, false);
         break;
       case 2:
-        aR[0] = stepOn(0, 0, 30, RED, STEP_ON_TIME, true);
-        aR[1] = stepOn(1, 31, 60, GREEN, STEP_ON_TIME, true);
-        aR[2] = stepOn(2, 61, 90, BLUE, STEP_ON_TIME, true);
-        aR[3] = stepOn(3, 91, 120, RED, STEP_ON_TIME, true);
-        aR[4] = stepOn(4, 121, 150, GREEN, STEP_ON_TIME, true);
-        aR[5] = stepOn(5, 151, 180, BLUE, STEP_ON_TIME, true);
-        aR[6] = stepOn(6, 181, 210, RED, STEP_ON_TIME, true);
-        aR[7] = stepOn(7, 211, 240, GREEN, STEP_ON_TIME, true);
-        aR[8] = stepOn(8, 241, 270, BLUE, STEP_ON_TIME, true);
-        aR[9] = stepOn(9, 271, 300, BLUE, STEP_ON_TIME, true);
+        aR[0] = stepOn(0, 0, 39, RED, STEP_ON_TIME, true);
+        aR[1] = stepOn(1, 40, 71, RED, STEP_ON_TIME, true);
+        aR[2] = stepOn(2, 71, 108, GREEN, STEP_ON_TIME, true);
+        aR[3] = stepOn(3, 109, 136, GREEN, STEP_ON_TIME, true);
+        aR[4] = stepOn(4, 137, 173, 0x33000000, STEP_ON_TIME, true);
+        aR[5] = stepOn(5, 174, 201, 0x33000000, STEP_ON_TIME, true);
+        aR[6] = stepOn(6, 202, 238, YELLOW, STEP_ON_TIME, true);
+        aR[7] = stepOn(7, 239, 266, YELLOW, STEP_ON_TIME, true);
+        aR[8] = stepOn(8, 267, 306, BLUE, STEP_ON_TIME, true);
+        aR[9] = stepOn(9, 307, 338, BLUE, STEP_ON_TIME, true);
         break;
       case -2:
-        aR[0] = stepOn(0, 0, 30, RED, STEP_OFF_TIME, false);
-        aR[1] = stepOn(1, 31, 60, GREEN, STEP_OFF_TIME, false);
-        aR[2] = stepOn(2, 61, 90, BLUE, STEP_OFF_TIME, false);
-        aR[3] = stepOn(3, 91, 120, RED, STEP_OFF_TIME, false);
-        aR[4] = stepOn(4, 121, 150, GREEN, STEP_OFF_TIME, false);
-        aR[5] = stepOn(5, 151, 180, BLUE, STEP_OFF_TIME, false);
-        aR[6] = stepOn(6, 181, 210, RED, STEP_OFF_TIME, false);
-        aR[7] = stepOn(7, 211, 240, GREEN, STEP_OFF_TIME, false);
-        aR[8] = stepOn(8, 241, 270, BLUE, STEP_OFF_TIME, false);
-        aR[9] = stepOn(9, 271, 300, BLUE, STEP_OFF_TIME, false);
+        aR[0] = stepOn(0, 0, 39, RED, STEP_OFF_TIME, false);
+        aR[1] = stepOn(1, 40, 71, RED, STEP_OFF_TIME, false);
+        aR[2] = stepOn(2, 71, 108, GREEN, STEP_OFF_TIME, false);
+        aR[3] = stepOn(3, 109, 136, GREEN, STEP_OFF_TIME, false);
+        aR[4] = stepOn(4, 137, 173, 0x33000000, STEP_OFF_TIME, false);
+        aR[5] = stepOn(5, 174, 201, 0x33000000, STEP_OFF_TIME, false);
+        aR[6] = stepOn(6, 202, 238, YELLOW, STEP_OFF_TIME, false);
+        aR[7] = stepOn(7, 239, 266, YELLOW, STEP_OFF_TIME, false);
+        aR[8] = stepOn(8, 267, 306, BLUE, STEP_OFF_TIME, false);
+        aR[9] = stepOn(9, 307, 338, BLUE, STEP_OFF_TIME, false);
         break;
     }
     if (aR[0] && aR[1] && aR[2] && aR[3] && aR[4] && aR[5] && aR[6] && aR[7] && aR[8] && aR[9]){  // Wenn alle Segmente true zurückgeben ist die Animation fertig
