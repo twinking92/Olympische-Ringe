@@ -13,6 +13,10 @@
 #define FADE_OFF_TIME 500
 #define STEP_ON_TIME 2000
 #define STEP_OFF_TIME 500
+#define ANIMATION_ON_STARTUP 1 // 0: keine 1: fade on 2: step on
+
+#define YELLOW (uint32_t)0xFFAA00
+#define DARKWHITE (uint32_t)0x22000000
 
 bool stepOn(int channel, int startBit, int stopBit, long color, int time, bool onOff);
 bool fadeOn(int channel, int startBit, int stopBit, long color, int time, bool onOff);
@@ -26,7 +30,7 @@ Button button(BUTTON_PIN);
 
 bool animationRunning = false;
 int animationMode = -1;
-int clickStatus = 1;
+int clickStatus = ANIMATION_ON_STARTUP;
 unsigned long startOfAnimationTime = 0;
 
 void setup() {
@@ -97,8 +101,8 @@ void loop() {
         aR[1] = stepOn(1, 40, 71, RED, STEP_ON_TIME, true);
         aR[2] = stepOn(2, 71, 108, GREEN, STEP_ON_TIME, true);
         aR[3] = stepOn(3, 109, 136, GREEN, STEP_ON_TIME, true);
-        aR[4] = stepOn(4, 137, 173, 0x33000000, STEP_ON_TIME, true);
-        aR[5] = stepOn(5, 174, 201, 0x33000000, STEP_ON_TIME, true);
+        aR[4] = stepOn(4, 137, 173, DARKWHITE, STEP_ON_TIME, true);
+        aR[5] = stepOn(5, 174, 201, DARKWHITE, STEP_ON_TIME, true);
         aR[6] = stepOn(6, 202, 238, YELLOW, STEP_ON_TIME, true);
         aR[7] = stepOn(7, 239, 266, YELLOW, STEP_ON_TIME, true);
         aR[8] = stepOn(8, 267, 306, BLUE, STEP_ON_TIME, true);
@@ -109,8 +113,8 @@ void loop() {
         aR[1] = stepOn(1, 40, 71, RED, STEP_OFF_TIME, false);
         aR[2] = stepOn(2, 71, 108, GREEN, STEP_OFF_TIME, false);
         aR[3] = stepOn(3, 109, 136, GREEN, STEP_OFF_TIME, false);
-        aR[4] = stepOn(4, 137, 173, 0x33000000, STEP_OFF_TIME, false);
-        aR[5] = stepOn(5, 174, 201, 0x33000000, STEP_OFF_TIME, false);
+        aR[4] = stepOn(4, 137, 173, DARKWHITE, STEP_OFF_TIME, false);
+        aR[5] = stepOn(5, 174, 201, DARKWHITE, STEP_OFF_TIME, false);
         aR[6] = stepOn(6, 202, 238, YELLOW, STEP_OFF_TIME, false);
         aR[7] = stepOn(7, 239, 266, YELLOW, STEP_OFF_TIME, false);
         aR[8] = stepOn(8, 267, 306, BLUE, STEP_OFF_TIME, false);
