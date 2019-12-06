@@ -6,7 +6,7 @@
 #endif
 
 #define NUMBER_OF_LEDS 339
-#define LED_MAX_BRIGHTNESS 50
+#define LED_START_BRIGHTNESS 51
 #define LED_PIN D5
 #define BUTTON_PIN D8
 #define FADE_ON_TIME 2000
@@ -15,7 +15,7 @@
 #define STEP_OFF_TIME 500
 #define ANIMATION_ON_STARTUP 1 // 0: keine 1: fade on 2: step on
 
-#define YELLOW (uint32_t)0xFFAA00
+#define YELLOW (uint32_t)0xFF8800
 #define DARKWHITE (uint32_t)0x22000000
 
 bool stepOn(int channel, int startBit, int stopBit, long color, int time, bool onOff);
@@ -45,13 +45,13 @@ void setup() {
     rmt_tx_int(RMT_CHANNEL_0, leds.getPin());
     leds.setCustomShow(myCustomShow1); 
   #endif
-  leds.setBrightness(LED_MAX_BRIGHTNESS);
+  leds.setBrightness(LED_START_BRIGHTNESS);
   leds.start();
 }
 
 void loop() {
   // Aktualisiere LEDs
-  showLEDsInFrames(24);
+  showLEDsInFrames(35);
 
   // Verarbeite Eingabe
   switch (clickStatus){
@@ -80,7 +80,11 @@ void loop() {
       startOfAnimationTime = millis(); // Debugging
       break;
     case 3:
-      Serial.println("hold");
+      uint8_t tempBrightness = leds.getBrightness();
+      tempBrightness += 51;
+      if (tempBrightness < 51) tempBrightness = 51;
+      leds.setBrightness(tempBrightness);
+      Serial.printf("Helligkeit auf: %d\n", leds.getBrightness());
       break;
   }
 
