@@ -13,10 +13,10 @@
 #define FADE_OFF_TIME 500
 #define STEP_ON_TIME 2000
 #define STEP_OFF_TIME 500
-#define ANIMATION_ON_STARTUP 1 // 0: keine 1: fade on 2: step on
+#define ANIMATION_ON_STARTUP 0 // 0: keine 1: fade on 2: step on
 
-#define YELLOW (uint32_t)0xFF8800
-#define DARKWHITE (uint32_t)0x22000000
+#define YELLOW (uint32_t)0xFF6000
+#define DARKWHITE (uint32_t)0x11000000
 
 bool stepOn(int channel, int startBit, int stopBit, long color, int time, bool onOff);
 bool fadeOn(int channel, int startBit, int stopBit, long color, int time, bool onOff);
