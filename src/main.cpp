@@ -174,7 +174,7 @@ bool fadeOn(int channel, int startBit, int stopBit, long color, int time, bool o
   if (onOff){
     if (channelCounter[channel] <= 255){ 
       if ( (millis()-lastMillis[channel]) >= refreshTime) {
-        leds.fill(leds.Color(r/255*(channelCounter[channel]), g/255*(channelCounter[channel]), b/255*(channelCounter[channel]), w/255*(channelCounter[channel])), startBit, stopBit);
+        leds.fill(leds.Color((float)r/255*(channelCounter[channel]), (float)g/255*(channelCounter[channel]), (float)b/255*(channelCounter[channel]), (float)w/255*(channelCounter[channel])), startBit, stopBit);
         channelCounter[channel]++;
         lastMillis[channel] = millis();
       }
@@ -182,7 +182,7 @@ bool fadeOn(int channel, int startBit, int stopBit, long color, int time, bool o
   } else{
     if (channelCounter[channel] > 0 ){
       if ( (millis()-lastMillis[channel]) >= refreshTime) {
-        leds.fill(leds.Color(r/255*(channelCounter[channel]-1), g/255*(channelCounter[channel]-1), b/255*(channelCounter[channel]-1), w/255*(channelCounter[channel]-1)), startBit, stopBit);
+        leds.fill(leds.Color((float)r/255*(channelCounter[channel]-1), (float)g/255*(channelCounter[channel]-1), (float)b/255*(channelCounter[channel]-1), (float)w/255*(channelCounter[channel]-1)), startBit, stopBit);
         channelCounter[channel]--; 
         lastMillis[channel] = millis();
       }
