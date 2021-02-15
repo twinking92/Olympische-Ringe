@@ -15,7 +15,7 @@ Die Beleuchtung basiert auf individuell adressierbaren RGBW LED-Streifen des Typ
 
 Mit einem langen Klick kann die Helligkeit in fünf Stufen durchgeschalten werden.
 
-Die Animationen werden non-blocking ausgeführt, daher wäre es möglich einen Server auf den ESP einzurichten und die Lampe so fernzusteuern. Die Funktion ist jedoch noch nicht implementiert.
+Die Animationen werden non-blocking ausgeführt. Daher wäre es möglich einen Server auf dem ESP einzurichten und die Lampe fernzusteuern. Dies ist jedoch noch nicht implementiert.
 
 Das 5V 10A Netzteil von Meanwell wird in einem ebenfalls gefrästen Gehäuse aus 4mm starken Multiplex-Platten untergebracht.
 
