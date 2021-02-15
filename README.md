@@ -2,7 +2,7 @@
 
 # Olympische Ringe RGBW Lampe
 
-[![GitHub issues](https://img.shields.io/github/issues/twinking92/Olympische-Ringe)](https://github.com/twinking92/Olympische-Ringe/issues) [![GitHub license](https://img.shields.io/github/license/twinking92/Olympische-Ringe)](https://github.com/twinking92/Olympische-Ringe/LICENSE) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/twinking92/Olympische-Ringe)
+[![GitHub issues](https://img.shields.io/github/issues/twinking92/Olympische-Ringe)](https://github.com/twinking92/Olympische-Ringe/issues) [![GitHub license](https://img.shields.io/github/license/twinking92/Olympische-Ringe)](https://github.com/twinking92/Olympische-Ringe/blob/master/LICENSE) ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/twinking92/Olympische-Ringe)
 
 ### Eine Open-Source RGB Lampe in Form der Olympischen Ringe als DIY Projekt
 ### Designed by Fabian Spinrath ([@twinking92](https://github.com/twinking92))
